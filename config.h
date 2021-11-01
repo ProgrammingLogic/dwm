@@ -39,7 +39,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Jellyfin", NULL,       NULL,       ~0,           1,           -1 },
+    {  NULL,      NULL,       NULL,       0,            0,           -1 },
 };
 
 /* layout(s) */
@@ -71,11 +71,15 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *browsercmd[]  = { "firefox", NULL };
-static const char *signalcmd[]  = { "signal-desktop", NULL };
-static const char *jellfincmd[]  = { "jellyfinmediaplayer", NULL };
+static const char *dmenucmd[] =           { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *termcmd[]  =           { "st", NULL };
+static const char *browsercmd[]  =        { "firefox", NULL };
+static const char *signalcmd[]  =         { "signal-desktop", NULL };
+static const char *spotifycmd[]  =        { "spotify", NULL };
+static const char *multicmd[]  =          { "multimc", NULL };
+static const char *steamcmd[]  =          { "steam", NULL };
+static const char *libreofficecmd[]  =    { "libreoffice", "--global", NULL};
+
 
 
 static Key keys[] = {
@@ -122,10 +126,19 @@ static Key keys[] = {
 	// { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	// application keys
 	// MODKEY + shift 
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_f, spawn,          	   {.v = browsercmd } },
-	{ MODKEY,	                    XK_s, spawn,          	   {.v = signalcmd } },
-	{ MODKEY|ShiftMask,	            XK_j, spawn,          	   {.v = jellfincmd } },
+    // ALT + M == spotify
+    // ALT + F == firefox
+    // ALT + s == signal
+    // ALT + G == steam
+    // ALT + g == multimc (modded mc launcher)
+    // ALT + d == libreoffice (document)
+	{ MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
+	{ MODKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
+	{ MODKEY|ShiftMask,	            XK_m,         spawn,          {.v = spotifycmd} },
+	{ MODKEY|ShiftMask,	            XK_g,         spawn,          {.v = steamcmd} },
+	{ MODKEY,	                    XK_g,         spawn,          {.v = multicmd} },
+	{ MODKEY,	                    XK_d,         spawn,          {.v = libreofficecmd} },
 };
 
 
