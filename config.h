@@ -2,8 +2,8 @@
 #include "fibonacci.c"
 
 /* appearance */
-static const unsigned int borderpx  = 16;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 8;        /* border pixel of windows */
+static const unsigned int snap      = 24;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=16" };
@@ -105,6 +105,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
+    // true fullscreen
+	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {.v = browsercmd } },
+
+
     // tag keys
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -132,8 +136,9 @@ static Key keys[] = {
     // ALT + G == steam
     // ALT + g == multimc (modded mc launcher)
     // ALT + d == libreoffice (document)
+    { MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_b,         spawn,          {.v = browsercmd } },
 	{ MODKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
 	{ MODKEY|ShiftMask,	            XK_m,         spawn,          {.v = spotifycmd} },
 	{ MODKEY|ShiftMask,	            XK_g,         spawn,          {.v = steamcmd} },
