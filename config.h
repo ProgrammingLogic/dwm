@@ -81,12 +81,12 @@ static const char *spotifycmd[]  =        { "spotify", NULL };
 static const char *multicmd[]  =          { "multimc", NULL };
 static const char *steamcmd[]  =          { "steam", NULL };
 static const char *libreofficecmd[]  =    { "libreoffice", "--global", NULL};
+static const char *bitwardencmd[]  =      { "bitwarden-desktop", NULL};
 
 
-static const char *upvol[] =        { "/usr/bin/pactl", "set-sink-volume", "0", "+5", NULL };
-static const char *downvol[] =      { "/usr/bin/pactl", "set-sink-volume", "0", "-5", NULL };
-static const char *mutevol[] =      { "/usr/bin/pactl", "set-sink-volume", "0", "toggle", NULL };
-
+static const char *upvol[] =        { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *downvol[] =      { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *mutevol[] =      { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "toggle", NULL };
 
 
 static Key keys[] = {
@@ -120,8 +120,8 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol} },
 
     // control via shortcuts
-	{ MODKEY,                       XK_bracketright,          spawn, {.v = downvol} },
-	{ MODKEY,                       XK_bracketleft,           spawn, {.v = upvol } },
+	{ MODKEY,                       XK_bracketright,          spawn, {.v = upvol} },
+	{ MODKEY,                       XK_bracketleft,           spawn, {.v = downvol } },
 	{ MODKEY,                       XK_backslash,             spawn, {.v = mutevol} },
 
 
@@ -154,7 +154,8 @@ static Key keys[] = {
     // ALT + d == libreoffice (document)
     { MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_b,         spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_b,         spawn,          {.v = bitwardencmd } },
 	{ MODKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
 	{ MODKEY|ShiftMask,	            XK_m,         spawn,          {.v = spotifycmd} },
 	{ MODKEY|ShiftMask,	            XK_g,         spawn,          {.v = steamcmd} },
