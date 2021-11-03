@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include "fibonacci.c"
+#include "X11/XF86keysym.h"
+
 
 /* appearance */
 static const unsigned int borderpx  = 8;        /* border pixel of windows */
@@ -81,6 +83,11 @@ static const char *steamcmd[]  =          { "steam", NULL };
 static const char *libreofficecmd[]  =    { "libreoffice", "--global", NULL};
 
 
+static const char *upvol[] =        { "/usr/bin/pactl", "set-sink-volume", "0", "+5", NULL };
+static const char *downvol[] =      { "/usr/bin/pactl", "set-sink-volume", "0", "-5", NULL };
+static const char *mutevol[] =      { "/usr/bin/pactl", "set-sink-volume", "0", "toggle", NULL };
+
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -105,8 +112,17 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 
-    // true fullscreen
-	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {.v = browsercmd } },
+
+    // volume
+    // control via media keys
+	{ 0,                            XF86XK_AudioLowerVolume,  spawn, {.v = downvol} },
+	{ 0,                            XF86XK_AudioRaiseVolume,  spawn, {.v = upvol } },
+	{ 0,                            XF86XK_AudioMute,         spawn, {.v = mutevol} },
+
+    // control via shortcuts
+	{ MODKEY,                       XK_bracketright,          spawn, {.v = downvol} },
+	{ MODKEY,                       XK_bracketleft,           spawn, {.v = upvol } },
+	{ MODKEY,                       XK_backslash,             spawn, {.v = mutevol} },
 
 
     // tag keys
