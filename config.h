@@ -4,18 +4,25 @@
 
 
 /* appearance */
-static const unsigned int borderpx  = 8;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 24;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=16" };
-static const char dmenufont[]       = "monospace:size=10";
+static const char *fonts[]          = { "monospace:size=12", "fontawesome:size=12" };
+static const char dmenufont[]       = "monospace:size=12";
 
+// background color
 static const char col_gray1[]       = "#222222";
+// inactive window border color
 static const char col_gray2[]       = "#444444";
+// font color
 static const char col_gray3[]       = "#bbbbbb";
+// current tag and current window font color
 static const char col_gray4[]       = "#eeeeee";
+// top bar second color (blue) and active window border color
 static const char col_cyan[]        = "#005577";
+
+
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 
@@ -59,8 +66,11 @@ static const Layout layouts[] = {
     { "[\\]",     dwindle }, 
 };
 
+// MODKEY -- shortcuts to control dwm
+// APPKEY -- shortcuts to launch applications
 /* key definitions */
 #define MODKEY Mod1Mask
+#define APPKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -82,8 +92,10 @@ static const char *multicmd[]  =          { "multimc", NULL };
 static const char *steamcmd[]  =          { "steam", NULL };
 static const char *libreofficecmd[]  =    { "libreoffice", "--global", NULL};
 static const char *bitwardencmd[]  =      { "bitwarden-desktop", NULL};
+static const char *htopcmd[]  =      { "st", "-e", "htop", NULL};
 
 
+/* shortcuts */
 static const char *upvol[] =        { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *downvol[] =      { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *mutevol[] =      { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "toggle", NULL };
@@ -143,24 +155,30 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
-	// { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	// application keys
-	// MODKEY + shift 
-    // ALT + M == spotify
-    // ALT + F == firefox
-    // ALT + s == signal
-    // ALT + G == steam
-    // ALT + g == multimc (modded mc launcher)
-    // ALT + d == libreoffice (document)
-    { MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
-	{ MODKEY|ShiftMask,             XK_b,         spawn,          {.v = bitwardencmd } },
-	{ MODKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
-	{ MODKEY|ShiftMask,	            XK_m,         spawn,          {.v = spotifycmd} },
-	{ MODKEY|ShiftMask,	            XK_g,         spawn,          {.v = steamcmd} },
-	{ MODKEY,	                    XK_g,         spawn,          {.v = multicmd} },
-	{ MODKEY,	                    XK_d,         spawn,          {.v = libreofficecmd} },
+
+    /*
+        Use WINDOWS key to launch applications
+
+        WIN + r == dmenu
+        WIN + return == terminal
+        WIN + SHIFT + f == firefox
+        WIN + SHIFT + b == bitwarden
+        WIN + s == signal
+        WIN + SHIFT + s == spotify
+        WIN + g == steam
+        WIN + SHIFT + g == multimc
+        WIN + d == libreoffice (document)
+    */
+    { APPKEY,                       XK_r,         spawn,          {.v = dmenucmd } },
+	{ APPKEY,                       XK_Return,    spawn,          {.v = termcmd } },
+	{ APPKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
+	{ APPKEY|ShiftMask,             XK_b,         spawn,          {.v = bitwardencmd } },
+	{ APPKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
+	{ APPKEY|ShiftMask,	            XK_s,         spawn,          {.v = spotifycmd} },
+	{ APPKEY,	                    XK_g,         spawn,          {.v = steamcmd} },
+	{ APPKEY|ShiftMask,	            XK_g,         spawn,          {.v = multicmd} },
+	{ APPKEY,	                    XK_d,         spawn,          {.v = libreofficecmd} },
+	{ APPKEY,	                    XK_p,         spawn,          {.v = htopcmd} },
 };
 
 
