@@ -170,7 +170,7 @@ static Key keys[] = {
         WIN + d == libreoffice (document)
     */
     { APPKEY,                       XK_r,         spawn,          {.v = dmenucmd } },
-	{ APPKEY,                       XK_Return,    spawn,          {.v = termcmd } },
+	{ APPKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
 	{ APPKEY|ShiftMask,             XK_f,         spawn,          {.v = browsercmd } },
 	{ APPKEY|ShiftMask,             XK_b,         spawn,          {.v = bitwardencmd } },
 	{ APPKEY,	                    XK_s,         spawn,          {.v = signalcmd } },
